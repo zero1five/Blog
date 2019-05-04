@@ -13,3 +13,9 @@ services:
       - db
   db:
     image: postgres
+    volumes:
+      - db_volume:/data/db
+  redis:
+    image: redis:3.2.0
+volumes:
+  db_volume:

@@ -19,5 +19,6 @@ WORKDIR /app
 RUN gem install bundler
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
+RUN bundle config mirror.https://rubygems.org https://gems.ruby-china.com
 RUN bundle install
 ADD . /app
