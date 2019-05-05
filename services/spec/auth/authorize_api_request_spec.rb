@@ -1,23 +1,27 @@
 require 'rails_helper'
 
-Rspec.decribe AuthorizeApiRequest do
-  # 创建测试用户
+RSpec.describe AuthorizeApiRequest do
+  # Create test user
   let(:user) { create(:user) }
-  # 模拟 auth header
-  let(:header) {{ 'Authorization' => token_generator(user.id) }}
-  # 无效的请求
-  subject(:invalid_request_obj) { described_class.new({}) } 
-  # 有效的请求
+  # Mock `Authorization` header
+  let(:header) { { 'Authorization' => token_generator(user.id) } }
+  # Invalid request subject
+  subject(:invalid_request_obj) { described_class.new({}) }
+  # Valid request subject
   subject(:request_obj) { described_class.new(header) }
 
+  # Test Suite for AuthorizeApiRequest#call
+  # This is our entry point into the service class
   describe '#call' do
-    context 'when vaild request' do
+    # returns user object when request is valid
+    context 'when valid request' do
       it 'returns user object' do
         result = request_obj.call
         expect(result[:user]).to eq(user)
       end
     end
 
+    # returns error message when invalid request
     context 'when invalid request' do
       context 'when missing token' do
         it 'raises a MissingToken error' do
@@ -50,7 +54,7 @@ Rspec.decribe AuthorizeApiRequest do
             )
         end
       end
-      
+
       context 'fake token' do
         let(:header) { { 'Authorization' => 'foobar' } }
         subject(:invalid_request_obj) { described_class.new(header) }
