@@ -1,7 +1,7 @@
 # app/lib/json_web_token.rb
 class JsonWebToken
   # 一个随机字符串
-  HMAC_SECRET = Rails.application.secrets.secrets_key_base
+  HMAC_SECRET = Rails.application.secrets.secret_key_base
 
   # 编码方法
   def self.encode(payload, exp = 24.hours.from_now)
