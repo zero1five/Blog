@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
   ruby-dev \
   tzdata \
   yarn \
-  zlib1g-dev
+  zlib1g-dev \
+  redis-server
 
 WORKDIR /app
 
